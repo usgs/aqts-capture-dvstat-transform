@@ -1,0 +1,95 @@
+package gov.usgs.wma.waterdata;
+
+import java.util.function.Function;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TransformDailyValue implements Function<RequestObject, ResultObject> {
+	private static final Logger LOG = LoggerFactory.getLogger(TransformDailyValue.class);
+
+	private TimeSeriesDao timeSeriesDao;
+
+	public static final String TS_CORRECTED_DATA = "tsCorrectedData";
+	public static final String TS_DESCRIPTION_LIST = "tsDescriptionList";
+
+	public static final String BAD_INPUT = "badInput";
+	public static final String TRANSFORM_ERROR = "transformError";
+	public static final String SUCCESSFUL = "successful";
+
+	@Autowired
+	public TransformDailyValue(TimeSeriesDao timeSeriesDao) {
+		this.timeSeriesDao = timeSeriesDao;
+	}
+
+	@Override
+	public ResultObject apply(RequestObject request) {
+		return processRequest(request);
+	}
+
+	protected ResultObject processRequest(RequestObject request) {
+		if (null != request && null != request.getType()) {
+			LOG.debug("requestType {} for id {} and timeseries {}", request.getType(), request.getId(), request.getUniqueId());
+			switch (request.getType()) {
+			case TS_CORRECTED_DATA:
+				return processTsCorrectedData(request);
+			case TS_DESCRIPTION_LIST:
+				return processTsDescriptionList(request);
+			default:
+				return badInput(request);
+			}
+		} else {
+			LOG.debug("request or type was null");
+			return badInput(request);
+		}
+	}
+
+	protected ResultObject processTsCorrectedData(RequestObject request) {
+		int initialCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
+		int deletedCount = timeSeriesDao.doDeleteTsCorrectedData(request.getId());
+		int affectedCount = timeSeriesDao.doInsertTsCorrectedData(request.getId());
+		return validateTsCorrectedData(request, initialCount, deletedCount, affectedCount);
+	}
+
+	protected ResultObject processTsDescriptionList(RequestObject request) {
+		ResultObject result = new ResultObject();
+		result.setTransformStatus(SUCCESSFUL);
+		result.setAffectedTimeSteps(3);
+		result.setTotalTimeSteps(4);
+		return result;
+	}
+
+	protected ResultObject badInput(RequestObject request) {
+		ResultObject result = new ResultObject();
+		result.setTransformStatus(BAD_INPUT);
+		return result;
+	}
+
+	protected ResultObject validateTsCorrectedData(RequestObject request, int initialCount, int deletedCount, int affectedCount) {
+		ResultObject result = new ResultObject();
+		int expectedAffectedCount = timeSeriesDao.doGetExpectedPoints(request.getId());
+		int actualFinalCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
+
+		result.setTransformStatus(determineStatus(initialCount, deletedCount, affectedCount,
+				actualFinalCount, expectedAffectedCount));
+		result.setAffectedTimeSteps(affectedCount);
+		result.setDeletedTimeSteps(deletedCount);
+		result.setTotalTimeSteps(actualFinalCount);
+
+		return result;
+	}
+
+	protected String determineStatus(int initialCount, int deletedCount, int affectedCount,
+			int actualFinalCount, int expectedAffectedCount) {
+		if ((initialCount - deletedCount + affectedCount) == actualFinalCount
+				&& affectedCount == expectedAffectedCount) {
+			return SUCCESSFUL;
+		} else {
+			return TRANSFORM_ERROR;
+		}
+		
+	}
+}

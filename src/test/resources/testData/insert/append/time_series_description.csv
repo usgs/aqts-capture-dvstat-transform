@@ -1,0 +1,3 @@
+time_series_unique_id,unit,parameter,parm_cd,stat_cd,location_identifier
+aBc,ft,propname,prop,stat,12345678901234
+dEf,ft,propname,prop,stat,12345678901234-WISC
