@@ -18,6 +18,7 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 
 	public static final String BAD_INPUT = "badInput";
 	public static final String TRANSFORM_ERROR = "transformError";
+	public static final String NOT_YET_IMPLEMENTED = "notYetImplemented";
 	public static final String SUCCESSFUL = "successful";
 
 	@Autowired
@@ -55,10 +56,22 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 	}
 
 	protected ResultObject processTsDescriptionList(RequestObject request) {
+		ResultObject result = null;
+		int initialCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
+		if (0 == initialCount) {
+			//Assume the TsCorrectedData was processed first and failed, so process it again
+			result = findAndProcessTsCorrectedData(request);
+		} else {
+			//Just update existing rows
+			int affectedCount = timeSeriesDao.doUpdateTsDescriptionList(request.getUniqueId());
+			result = validateTsDescriptionList(request, initialCount, affectedCount);
+		}
+		return result;
+	}
+
+	protected ResultObject findAndProcessTsCorrectedData(RequestObject request) {
 		ResultObject result = new ResultObject();
-		result.setTransformStatus(SUCCESSFUL);
-		result.setAffectedTimeSteps(3);
-		result.setTotalTimeSteps(4);
+		result.setTransformStatus(NOT_YET_IMPLEMENTED);
 		return result;
 	}
 
@@ -82,6 +95,22 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 		return result;
 	}
 
+	protected ResultObject validateTsDescriptionList(RequestObject request, int initialCount, int affectedCount) {
+		ResultObject result = new ResultObject();
+		int actualFinalCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
+
+		if (initialCount == affectedCount && affectedCount == actualFinalCount) {
+			result.setTransformStatus(SUCCESSFUL);
+		} else {
+			result.setTransformStatus(TRANSFORM_ERROR);
+		}
+		result.setAffectedTimeSteps(affectedCount);
+		result.setDeletedTimeSteps(0);
+		result.setTotalTimeSteps(actualFinalCount);
+
+		return result;
+	}
+
 	protected String determineStatus(int initialCount, int deletedCount, int affectedCount,
 			int actualFinalCount, int expectedAffectedCount) {
 		if ((initialCount - deletedCount + affectedCount) == actualFinalCount
@@ -90,6 +119,5 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 		} else {
 			return TRANSFORM_ERROR;
 		}
-		
 	}
 }

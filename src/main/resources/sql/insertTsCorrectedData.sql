@@ -14,7 +14,6 @@ insert
            time_series_unique_id,
            monitoring_location_identifier,
            observered_property_id,
-           observered_property_name,
            statistic_id,
            time_step,
            unit_of_measure,
@@ -30,24 +29,23 @@ select ts_description.agency_code ||
        ts_description.agency_code || 
            '-' || ts_description.location_identifier monitoring_location_identifier,
        ts_description.parm_cd observered_property_id,
-       ts_description.parameter observered_property_name,
        ts_description.stat_cd statistic_id,
        time_series_points.time_step,
        ts_description.unit unit_of_measure,
        time_series_points.display_value result,
-       (select json_build_array(array_agg(time_series_approvals.level_description))
+       (select array_to_json(array_agg(time_series_approvals.level_description))
           from time_series_approvals
          where time_series_points.json_data_id = time_series_approvals.json_data_id and
                time_series_approvals.start_time <= time_series_points.time_step and
                time_series_points.time_step < time_series_approvals.end_time
        ) approvals,
-       (select json_build_array(time_series_qualifiers.identifier)
+       (select array_to_json(array_agg(time_series_qualifiers.identifier))
           from time_series_qualifiers
          where time_series_points.json_data_id = time_series_qualifiers.json_data_id and
                time_series_qualifiers.start_time <= time_series_points.time_step and
                time_series_points.time_step < time_series_qualifiers.end_time
        ) qualifiers,
-       (select json_build_array(time_series_grades.grade_code)
+       (select array_to_json(array_agg(time_series_grades.grade_code))
           from time_series_grades
          where time_series_points.json_data_id = time_series_grades.json_data_id and
                time_series_grades.start_time <= time_series_points.time_step and

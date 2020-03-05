@@ -1,2 +1,2 @@
-groundwater_daily_value_identifier,time_series_unique_id,monitoring_location_identifier,observered_property_id,observered_property_name,statistic_id,time_step,unit_of_measure,result,approvals,qualifiers,grades
-WISC-12345678901234-dEf,dEf,WISC-12345678901234,prop,propname,stat,2020-01-01,ft,12.23,"[\"APP\"]","[\"QUAL\"]","[\"GRADE\"]"
+groundwater_daily_value_identifier,time_series_unique_id,monitoring_location_identifier,observered_property_id,statistic_id,time_step,unit_of_measure,result,approvals,qualifiers,grades
+WISC-12345678901234-dEf,dEf,WISC-12345678901234,prop,stat,2020-01-01,ft,12.23,"[\"APP\"]","[\"QUAL\"]","[\"GRADE\"]"

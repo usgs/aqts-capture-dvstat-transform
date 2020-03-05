@@ -1,7 +1,6 @@
 package gov.usgs.wma.waterdata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -89,14 +88,25 @@ public class TimeSeriesDaoIT {
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
 	@DatabaseSetup("classpath:/testData/insert/append/")
-//	@ExpectedDatabase(
-//			value="classpath:/testResult/insert/append/",
-//			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
-//			)
+	@ExpectedDatabase(
+			value="classpath:/testResult/insert/append/",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
+			)
 	@Test
 	public void doInsertTsCorrectedDataTest() {
 		assertEquals(12, timeSeriesDao.doInsertTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_2));
 		assertEquals(13, timeSeriesDao.doInsertTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_3));
+	}
+
+	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/update/")
+	@ExpectedDatabase(
+			value="classpath:/testResult/update/",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
+			)
+	@Test
+	public void doUpdateTsDescriptionListTest() {
+		assertEquals(1, timeSeriesDao.doUpdateTsDescriptionList(TS_CORRECTED_ID_DEF));
 	}
 
 	@Test

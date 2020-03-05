@@ -31,9 +31,8 @@ public class TimeSeriesDao {
 	@Value("classpath:sql/insertTsCorrectedData.sql")
 	private Resource insertTsCorrectedData;
 
-	@Value("classpath:sql/upsertTsCorrectedData.sql")
-	private Resource upsertTsCorrectedData;
-
+	@Value("classpath:sql/updateTsDescriptionList.sql")
+	private Resource updateTsDescriptionList;
 
 	@Transactional
 	public int doDeleteTsCorrectedData(Long jsonDataId) {
@@ -56,8 +55,8 @@ public class TimeSeriesDao {
 	}
 
 	@Transactional
-	public int doUpsertTsCorrectedData(Long jsonDataId) {
-		return jdbcTemplate.update(getSql(upsertTsCorrectedData), jsonDataId);
+	public int doUpdateTsDescriptionList(String uniqueId) {
+		return jdbcTemplate.update(getSql(updateTsDescriptionList), uniqueId);
 	}
 
 	protected String getSql(Resource resource) {
