@@ -27,7 +27,7 @@ custom:
 
 functions:
   transform:
-    handler: gov.usgs.wma.waterdata.DetermineRouteHandler
+    handler: gov.usgs.wma.waterdata.TransformDailyValueHandler
     role: arn:aws:iam::${self:custom.accountNumber}:role/csr-Lambda-Role
     environment:
       FUNCTION_NAME: transform
