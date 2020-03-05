@@ -2,7 +2,7 @@
   {
     "name": "Daily Value Transform",
     "organization": "U.S. Geological Survey",
-    "description": "Time series Daily Value Transformer for ETL from Aquarious Timeseries to WDFN",
+    "description": "Time series Daily Value Transformer for ETL from Aquarius Timeseries to WDFN",
     "version": "0.0.${revision}",
     "status": "Development",
 
