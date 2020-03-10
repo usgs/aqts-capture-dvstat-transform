@@ -3,7 +3,6 @@ with ts_description
              (regexp_match(location_identifier, '(\d*)-*(.*)'))[1] location_identifier,
              coalesce(nullif((regexp_match(location_identifier, '(\d*)-*(.*)'))[2], ''), 'USGS') agency_code,
              parm_cd,
-             parameter,
              stat_cd,
              unit
         from time_series_description
