@@ -28,7 +28,13 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 
 	@Override
 	public ResultObject apply(RequestObject request) {
-		return processRequest(request);
+		ResultObject result = processRequest(request);
+		String transformStatus = result.getTransformStatus();
+		if (SUCCESSFUL != transformStatus) {
+			throw new RuntimeException(transformStatus);
+		} else {
+			return result;
+		}
 	}
 
 	protected ResultObject processRequest(RequestObject request) {

@@ -1,9 +1,5 @@
 package gov.usgs.wma.waterdata;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +22,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, TimeSeriesDao.class, TransformDailyValue.class})
@@ -75,6 +73,10 @@ public class TransformDailyValueIT {
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_ABC, result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
@@ -107,6 +109,10 @@ public class TransformDailyValueIT {
 		assertNull(result.getAffectedTimeSteps());
 		assertNull(result.getDeletedTimeSteps());
 		assertNull(result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
@@ -122,6 +128,10 @@ public class TransformDailyValueIT {
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
 		assertEquals(19, result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
