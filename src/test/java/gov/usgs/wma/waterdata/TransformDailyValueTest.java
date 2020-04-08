@@ -1,6 +1,7 @@
 package gov.usgs.wma.waterdata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.times;
@@ -36,9 +37,9 @@ public class TransformDailyValueTest {
 	@Test
 	public void applyTest() {
 		request.setType("abc");
-		ResultObject result = transformDailyValue.apply(request);
-		assertNotNull(result);
-		assertEquals(TransformDailyValue.BAD_INPUT, result.getTransformStatus());
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@Test
@@ -48,6 +49,10 @@ public class TransformDailyValueTest {
 		assertEquals(TransformDailyValue.BAD_INPUT, result.getTransformStatus());
 		assertNull(result.getAffectedTimeSteps());
 		assertNull(result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@Test
@@ -58,6 +63,10 @@ public class TransformDailyValueTest {
 		assertEquals(TransformDailyValue.BAD_INPUT, result.getTransformStatus());
 		assertNull(result.getAffectedTimeSteps());
 		assertNull(result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@Test
@@ -68,6 +77,10 @@ public class TransformDailyValueTest {
 		assertEquals(TransformDailyValue.BAD_INPUT, result.getTransformStatus());
 		assertNull(result.getAffectedTimeSteps());
 		assertNull(result.getTotalTimeSteps());
+
+		assertThrows(RuntimeException.class, () -> {
+			transformDailyValue.apply(request);
+		}, "should have thrown an exception but did not");
 	}
 
 	@Test
