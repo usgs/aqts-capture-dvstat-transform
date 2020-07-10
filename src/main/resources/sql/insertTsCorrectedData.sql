@@ -56,3 +56,4 @@ select ts_description.agency_code ||
        join ts_description
          on time_series_header_info.time_series_unique_id = ts_description.time_series_unique_id
  where time_series_header_info.json_data_id = ?
+   and time_series_header_info.partition_number = ?

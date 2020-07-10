@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 public class TransformDailyValueTest {
 
 	private TransformDailyValue transformDailyValue;
+	@MockBean
 	private RequestObject request;
 	@MockBean
 	private TimeSeriesDao timeSeriesDao;
@@ -26,7 +27,8 @@ public class TransformDailyValueTest {
 	public void beforeEach() {
 		transformDailyValue = new TransformDailyValue(timeSeriesDao);
 		request = new RequestObject();
-		when(timeSeriesDao.doInsertTsCorrectedData(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1))
+
+		when(timeSeriesDao.doInsertTsCorrectedData(request))
 			.thenReturn(TransformDailyValueIT.TS_CORRECTED_ROWS_AFFECTED_1);
 		when(timeSeriesDao.doGetGwStatisticalDvCount(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC))
 			.thenReturn(TransformDailyValueIT.TS_CORRECTED_ROWS_ABC);
@@ -94,9 +96,9 @@ public class TransformDailyValueTest {
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_AFFECTED_1, result.getAffectedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_ABC, result.getTotalTimeSteps());
 		verify(timeSeriesDao, times(2)).doGetGwStatisticalDvCount(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);
-		verify(timeSeriesDao).doDeleteTsCorrectedData(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1);
-		verify(timeSeriesDao).doInsertTsCorrectedData(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1);
-		verify(timeSeriesDao).doGetExpectedPoints(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1);
+		verify(timeSeriesDao).doDeleteTsCorrectedData(request);
+		verify(timeSeriesDao).doInsertTsCorrectedData(request);
+		verify(timeSeriesDao).doGetExpectedPoints(request);
 	}
 
 	@Test
@@ -168,7 +170,7 @@ public class TransformDailyValueTest {
 		assertEquals(3, result.getAffectedTimeSteps());
 		assertEquals(2, result.getDeletedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_ABC, result.getTotalTimeSteps());
-		verify(timeSeriesDao).doGetExpectedPoints(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1);
+		verify(timeSeriesDao).doGetExpectedPoints(request);
 		verify(timeSeriesDao).doGetGwStatisticalDvCount(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);
 
 		result = transformDailyValue.validateTsCorrectedData(request, TransformDailyValueIT.TS_CORRECTED_ROWS_ABC, 0, 0);
@@ -177,7 +179,7 @@ public class TransformDailyValueTest {
 		assertEquals(0, result.getAffectedTimeSteps());
 		assertEquals(0, result.getDeletedTimeSteps());
 		assertEquals(TransformDailyValueIT.TS_CORRECTED_ROWS_ABC, result.getTotalTimeSteps());
-		verify(timeSeriesDao, times(2)).doGetExpectedPoints(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_1);
+		verify(timeSeriesDao, times(2)).doGetExpectedPoints(request);
 		verify(timeSeriesDao, times(2)).doGetGwStatisticalDvCount(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);
 	}
 
