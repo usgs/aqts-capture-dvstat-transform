@@ -18,7 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 public class TransformDailyValueTest {
 
 	private TransformDailyValue transformDailyValue;
-	@MockBean
 	private RequestObject request;
 	@MockBean
 	private TimeSeriesDao timeSeriesDao;

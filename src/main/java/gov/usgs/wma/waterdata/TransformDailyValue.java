@@ -123,8 +123,7 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 
 	protected String determineStatus(int initialCount, int deletedCount, int affectedCount,
 			int actualFinalCount, int expectedAffectedCount) {
-		if (
-				(initialCount - deletedCount + affectedCount) == actualFinalCount
+		if ((initialCount - deletedCount + affectedCount) == actualFinalCount
 				&& affectedCount == expectedAffectedCount) {
 			return SUCCESSFUL;
 		} else {
