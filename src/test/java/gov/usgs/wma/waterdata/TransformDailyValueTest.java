@@ -116,14 +116,15 @@ public class TransformDailyValueTest {
 
 	@Test
 	public void processTsCorrectedDataTest() {
-		request.setType(TransformDailyValue.TS_CORRECTED_DATA);
-		ResultObject result = transformDailyValue.processTsCorrectedData(request);
+		RequestObject requestObject = new RequestObject();
+		requestObject.setType(TransformDailyValue.TS_CORRECTED_DATA);
+		ResultObject result = transformDailyValue.processTsCorrectedData(requestObject);
 		assertNotNull(result);
 		assertEquals(TransformDailyValue.SUCCESSFUL, result.getTransformStatus());
 		verify(timeSeriesDao, times(2)).doGetGwStatisticalDvCount(null);
-		verify(timeSeriesDao).doDeleteTsCorrectedData(null);
-		verify(timeSeriesDao).doInsertTsCorrectedData(null);
-		verify(timeSeriesDao).doGetExpectedPoints(null);
+		verify(timeSeriesDao).doDeleteTsCorrectedData(requestObject);
+		verify(timeSeriesDao).doInsertTsCorrectedData(requestObject);
+		verify(timeSeriesDao).doGetExpectedPoints(requestObject);
 	}
 
 	@Test
