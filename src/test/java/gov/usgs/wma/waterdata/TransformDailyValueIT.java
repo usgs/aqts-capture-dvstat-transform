@@ -52,11 +52,13 @@ public class TransformDailyValueIT {
 	public static final Integer TS_CORRECTED_ROWS_DELETED_2 = 9;
 
 	public static final Integer TS_CORRECTED_ROWS_ABC = 22;
-	public static final Integer TS_CORRECTED_ROWS_DEF = 4;
+
+	public static final Long JSON_ID_0 = 0L;
 
 	@BeforeEach
 	public void beforeEach() {
 		request = new RequestObject();
+		request.setPartitionNumber(TimeSeriesDaoIT.PARTITION_NUMBER);
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
@@ -90,7 +92,7 @@ public class TransformDailyValueIT {
 			)
 	@Test
 	public void processTsDescriptionListUpdate() {
-		request.setId(0l);
+		request.setId(JSON_ID_0);
 		request.setType(TransformDailyValue.TS_DESCRIPTION_LIST);
 		request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_DEF);
 		ResultObject result = transformDailyValue.processTsDescriptionList(request);
@@ -103,7 +105,7 @@ public class TransformDailyValueIT {
 
 	@Test
 	public void processTsDescriptionListInsert() {
-		request.setId(0l);
+		request.setId(JSON_ID_0);
 		request.setType(TransformDailyValue.TS_DESCRIPTION_LIST);
 		request.setUniqueId("bad");
 		ResultObject result = transformDailyValue.processTsDescriptionList(request);
@@ -141,7 +143,7 @@ public class TransformDailyValueIT {
 	@DatabaseSetup("classpath:/testData/update/")
 	@Test
 	public void validateTsDescriptionList() {
-		request.setId(0l);
+		request.setId(JSON_ID_0);
 		request.setType(TransformDailyValue.TS_DESCRIPTION_LIST);
 		request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_DEF);
 		ResultObject result = transformDailyValue.validateTsDescriptionList(request, 1, 1);

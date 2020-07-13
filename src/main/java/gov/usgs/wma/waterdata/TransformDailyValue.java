@@ -56,8 +56,8 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 
 	protected ResultObject processTsCorrectedData(RequestObject request) {
 		int initialCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
-		int deletedCount = timeSeriesDao.doDeleteTsCorrectedData(request.getId());
-		int affectedCount = timeSeriesDao.doInsertTsCorrectedData(request.getId());
+		int deletedCount = timeSeriesDao.doDeleteTsCorrectedData(request);
+		int affectedCount = timeSeriesDao.doInsertTsCorrectedData(request);
 		return validateTsCorrectedData(request, initialCount, deletedCount, affectedCount);
 	}
 
@@ -89,11 +89,15 @@ public class TransformDailyValue implements Function<RequestObject, ResultObject
 
 	protected ResultObject validateTsCorrectedData(RequestObject request, int initialCount, int deletedCount, int affectedCount) {
 		ResultObject result = new ResultObject();
-		int expectedAffectedCount = timeSeriesDao.doGetExpectedPoints(request.getId());
+		int expectedAffectedCount = timeSeriesDao.doGetExpectedPoints(request);
 		int actualFinalCount = timeSeriesDao.doGetGwStatisticalDvCount(request.getUniqueId());
 
-		result.setTransformStatus(determineStatus(initialCount, deletedCount, affectedCount,
-				actualFinalCount, expectedAffectedCount));
+		result.setTransformStatus(determineStatus(
+				initialCount,
+				deletedCount,
+				affectedCount,
+				actualFinalCount,
+				expectedAffectedCount));
 		result.setAffectedTimeSteps(affectedCount);
 		result.setDeletedTimeSteps(deletedCount);
 		result.setTotalTimeSteps(actualFinalCount);

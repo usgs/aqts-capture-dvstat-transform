@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -43,13 +44,22 @@ public class TimeSeriesDaoIT {
 
 	@Autowired
 	private TimeSeriesDao timeSeriesDao;
+	private RequestObject request;
 
-	public static final Long TS_CORRECTED_JSON_DATA_ID_1 = 1l;
-	public static final Long TS_CORRECTED_JSON_DATA_ID_2 = 2l;
-	public static final Long TS_CORRECTED_JSON_DATA_ID_3 = 3l;
+	public static final Long TS_CORRECTED_JSON_DATA_ID_1 = 1L;
+	public static final Long TS_CORRECTED_JSON_DATA_ID_2 = 2L;
+	public static final Long TS_CORRECTED_JSON_DATA_ID_3 = 3L;
+	public static final Integer PARTITION_NUMBER = 7;
 
 	public static final String TS_CORRECTED_ID_ABC = "aBc";
 	public static final String TS_CORRECTED_ID_DEF = "dEf";
+
+	@BeforeEach
+	public void beforeEach() {
+		request = new RequestObject();
+		request.setId(TS_CORRECTED_JSON_DATA_ID_1);
+		request.setPartitionNumber(PARTITION_NUMBER);
+	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
 	@DatabaseSetup("classpath:/testData/delete/entire/")
@@ -59,7 +69,7 @@ public class TimeSeriesDaoIT {
 			)
 	@Test
 	public void doDeleteTsCorrectedDataEntireTest() {
-		assertEquals(19, timeSeriesDao.doDeleteTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_1));
+		assertEquals(19, timeSeriesDao.doDeleteTsCorrectedData(request));
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
@@ -70,13 +80,13 @@ public class TimeSeriesDaoIT {
 			)
 	@Test
 	public void doDeleteTsCorrectedDataPartialTest() {
-		assertEquals(6, timeSeriesDao.doDeleteTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_1));
+		assertEquals(6, timeSeriesDao.doDeleteTsCorrectedData(request));
 	}
 
 	@DatabaseSetup("classpath:/testData/delete/entire/")
 	@Test
 	public void doGetExpectedPointsTest() {
-		assertEquals(19, timeSeriesDao.doGetExpectedPoints(TS_CORRECTED_JSON_DATA_ID_1));
+		assertEquals(19, timeSeriesDao.doGetExpectedPoints(request));
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
@@ -94,8 +104,10 @@ public class TimeSeriesDaoIT {
 			)
 	@Test
 	public void doInsertTsCorrectedDataTest() {
-		assertEquals(12, timeSeriesDao.doInsertTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_2));
-		assertEquals(13, timeSeriesDao.doInsertTsCorrectedData(TS_CORRECTED_JSON_DATA_ID_3));
+		request.setId(TS_CORRECTED_JSON_DATA_ID_2);
+		assertEquals(12, timeSeriesDao.doInsertTsCorrectedData(request));
+		request.setId(TS_CORRECTED_JSON_DATA_ID_3);
+		assertEquals(13, timeSeriesDao.doInsertTsCorrectedData(request));
 	}
 
 	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")

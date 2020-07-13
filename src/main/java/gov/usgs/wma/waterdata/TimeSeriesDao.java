@@ -35,13 +35,20 @@ public class TimeSeriesDao {
 	private Resource updateTsDescriptionList;
 
 	@Transactional
-	public int doDeleteTsCorrectedData(Long jsonDataId) {
-		return jdbcTemplate.update(getSql(deleteTsCorrectedData), jsonDataId);
+	public int doDeleteTsCorrectedData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(deleteTsCorrectedData),
+				request.getId(),
+				request.getPartitionNumber());
 	}
 
 	@Transactional(readOnly=true)
-	public Integer doGetExpectedPoints(Long jsonDataId) {
-		return jdbcTemplate.queryForObject(getSql(getExpectedPoints), Integer.class, jsonDataId);
+	public Integer doGetExpectedPoints(RequestObject request) {
+		return jdbcTemplate.queryForObject(
+				getSql(getExpectedPoints),
+				Integer.class,
+				request.getId(),
+				request.getPartitionNumber());
 	}
 
 	@Transactional(readOnly=true)
@@ -50,8 +57,11 @@ public class TimeSeriesDao {
 	}
 
 	@Transactional
-	public int doInsertTsCorrectedData(Long jsonDataId) {
-		return jdbcTemplate.update(getSql(insertTsCorrectedData), jsonDataId);
+	public int doInsertTsCorrectedData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(insertTsCorrectedData),
+				request.getId(),
+				request.getPartitionNumber());
 	}
 
 	@Transactional
