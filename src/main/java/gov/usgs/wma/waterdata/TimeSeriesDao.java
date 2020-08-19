@@ -61,6 +61,7 @@ public class TimeSeriesDao {
 		return jdbcTemplate.update(
 				getSql(insertTsCorrectedData),
 				request.getId(),
+				request.getPartitionNumber(),
 				request.getPartitionNumber());
 	}
 
