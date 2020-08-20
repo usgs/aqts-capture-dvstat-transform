@@ -21,11 +21,11 @@ insert
            qualifiers,
            grades
        )
-select ts_description.agency_code || 
+select ts_description.agency_code ||
            '-' || ts_description.location_identifier ||
            '-' || ts_description.time_series_unique_id groundwater_daily_value_identifier,
        ts_description.time_series_unique_id,
-       ts_description.agency_code || 
+       ts_description.agency_code ||
            '-' || ts_description.location_identifier monitoring_location_identifier,
        ts_description.parm_cd observered_property_id,
        ts_description.stat_cd statistic_id,
@@ -57,3 +57,4 @@ select ts_description.agency_code ||
          on time_series_header_info.time_series_unique_id = ts_description.time_series_unique_id
  where time_series_header_info.json_data_id = ?
    and time_series_header_info.partition_number = ?
+   and time_series_points.partition_number = ?
