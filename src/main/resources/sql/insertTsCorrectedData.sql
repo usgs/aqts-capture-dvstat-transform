@@ -36,19 +36,22 @@ select ts_description.agency_code ||
           from time_series_approvals
          where time_series_points.json_data_id = time_series_approvals.json_data_id and
                time_series_approvals.start_time <= time_series_points.time_step and
-               time_series_points.time_step < time_series_approvals.end_time
+               time_series_points.time_step < time_series_approvals.end_time and
+               time_series_approvals.partition_number = ?
        ) approvals,
        (select array_to_json(array_agg(time_series_qualifiers.identifier))
           from time_series_qualifiers
          where time_series_points.json_data_id = time_series_qualifiers.json_data_id and
                time_series_qualifiers.start_time <= time_series_points.time_step and
-               time_series_points.time_step < time_series_qualifiers.end_time
+               time_series_points.time_step < time_series_qualifiers.end_time and
+               time_series_qualifiers.partition_number = ?
        ) qualifiers,
        (select array_to_json(array_agg(time_series_grades.grade_code))
           from time_series_grades
          where time_series_points.json_data_id = time_series_grades.json_data_id and
                time_series_grades.start_time <= time_series_points.time_step and
-               time_series_points.time_step < time_series_grades.end_time
+               time_series_points.time_step < time_series_grades.end_time and
+               time_series_grades.partition_number = ?
        ) grades
   from time_series_header_info
        join time_series_points
