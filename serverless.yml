@@ -31,7 +31,11 @@ custom:
 functions:
   transform:
     handler: gov.usgs.wma.waterdata.TransformDailyValueHandler
-    role: arn:aws:iam::#{AWS::AccountId}:role/csr-Lambda-Role
+    role:
+      Fn::Sub:
+        - arn:aws:iam::${accountId}:role/csr-Lambda-Role
+        - accountId:
+            Ref: AWS::AccountId
     environment:
       FUNCTION_NAME: transform
       AQTS_DATABASE_ADDRESS: ${self:custom.db.connectInfo.DATABASE_ADDRESS}
@@ -90,7 +94,6 @@ resources:
 
 plugins:
   - serverless-plugin-git-variables
-  - serverless-pseudo-parameters
 
 package:
   artifact: aqts-capture-dvstat-transform-aws.jar
