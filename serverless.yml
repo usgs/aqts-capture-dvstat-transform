@@ -35,7 +35,7 @@ custom:
     connectInfo: ${ssm:/aws/reference/secretsmanager/NWCAPTURE-DB-${self:provider.stage}~true}
   esLogs:
     endpoint: ${ssm:/iow/aws/vpc/${self:provider.stage}/elasticsearchEndpoint}
-    index: dvstat
+    index: aqts-capture-dvstat-transform
     retentionInDays: 90
     filterPattern: ' '
 
