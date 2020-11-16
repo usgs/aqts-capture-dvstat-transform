@@ -37,7 +37,7 @@ custom:
     endpoint: ${ssm:/iow/aws/vpc/${self:provider.stage}/elasticsearchEndpoint}
     index: ${self:service}
     retentionInDays: 90
-    filterPattern: ' '
+    filterPattern: "?java.lang.RuntimeException"
 
 functions:
   transform:
