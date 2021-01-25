@@ -75,13 +75,9 @@ unit_test_and_coverage:
           -v /root/.m2:/root/.m2
           -v $(pwd):/tmp/source 
           -w /tmp/source 
-          -e TRANSFORM_TESTING_DATABASE_PORT=5432 
-          -e LOCAL_TRANSFORM_TESTING_DATABASE_PORT=5437 
-          -e TRANSFORM_TESTING_DATABASE_ADDRESS=aqtsDb 
-          -e TESTING_DATABASE_NETWORK=aqtsNet 
-          -e OBSERVATION_TESTING_DATABASE_PORT=5432 
-          -e LOCAL_OBSERVATION_TESTING_DATABASE_PORT=5444 
-          -e OBSERVATION_TESTING_DATABASE_ADDRESS=wqpDb 
+          -e TESTING_DATABASE_PORT=5432
+          -e TESTING_DATABASE_ADDRESS=aqtsDb
+          -e TESTING_DATABASE_NETWORK=aqtsNet
           -e ROOT_LOG_LEVEL=INFO 
           maven:3.6.3-jdk-11 
           mvn $MAVEN_CLI_OPTS 
