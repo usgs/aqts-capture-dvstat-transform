@@ -61,8 +61,8 @@ public class TransformInstantaneousValueIT {
         request.setPartitionNumber(TimeSeriesDaoIT.PARTITION_NUMBER);
     }
 
-    @DatabaseSetup("classpath:/testData/instantaneousValue/instantaneousValue/")
-    @DatabaseSetup("classpath:/testData/instantaneousValue/insert/append/")
+    @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
+    @DatabaseSetup("classpath:/testData/instantaneous/insert/append/")
     @ExpectedDatabase(
             value="classpath:/testResult/instantaneous/insert/upsert/",
             assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
@@ -84,8 +84,8 @@ public class TransformInstantaneousValueIT {
         }, "should have thrown an exception but did not");
     }
 
-    @DatabaseSetup("classpath:/testData/instantaneousValue/instantaneousValue/")
-    @DatabaseSetup("classpath:/testData/instantaneousValue/update/")
+    @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
+    @DatabaseSetup("classpath:/testData/instantaneous/update/")
     @ExpectedDatabase(
             value="classpath:/testResult/instantaneous/update/",
             assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
@@ -120,8 +120,8 @@ public class TransformInstantaneousValueIT {
         }, "should have thrown an exception but did not");
     }
 
-    @DatabaseSetup("classpath:/testData/instantaneousValue/instantaneousValue/")
-    @DatabaseSetup("classpath:/testData/instantaneousValue/insert/append/")
+    @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
+    @DatabaseSetup("classpath:/testData/instantaneous/insert/append/")
     @Test
     public void validateInstantaneousData() {
         request.setId(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_2);
@@ -139,8 +139,8 @@ public class TransformInstantaneousValueIT {
         }, "should have thrown an exception but did not");
     }
 
-    @DatabaseSetup("classpath:/testData/instantaneousValue/instantaneousValue/")
-    @DatabaseSetup("classpath:/testData/instantaneousValue/update/")
+    @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
+    @DatabaseSetup("classpath:/testData/instantaneous/update/")
     @Test
     public void validateTsDescriptionListInstantaneous() {
         request.setId(JSON_ID_0);

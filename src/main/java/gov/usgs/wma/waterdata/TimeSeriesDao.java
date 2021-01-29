@@ -20,19 +20,19 @@ public class TimeSeriesDao {
 	protected JdbcTemplate jdbcTemplate;
 
 	// Statistical daily value queries
-	@Value("classpath:sql/deleteTsCorrectedData.sql")
+	@Value("classpath:sql/statisticalDailyValue/deleteTsCorrectedData.sql")
 	private Resource deleteTsCorrectedData;
 
-	@Value("classpath:sql/getExpectedPoints.sql")
+	@Value("classpath:sql/statisticalDailyValue/getExpectedPoints.sql")
 	private Resource getExpectedPoints;
 
-	@Value("classpath:sql/getGwStatisticalDvCount.sql")
+	@Value("classpath:sql/statisticalDailyValue/getGwStatisticalDvCount.sql")
 	private Resource getGwStatisticalDvCount;
 
-	@Value("classpath:sql/insertTsCorrectedData.sql")
+	@Value("classpath:sql/statisticalDailyValue/insertTsCorrectedData.sql")
 	private Resource insertTsCorrectedData;
 
-	@Value("classpath:sql/updateTsDescriptionList.sql")
+	@Value("classpath:sql/statisticalDailyValue/updateTsDescriptionList.sql")
 	private Resource updateTsDescriptionList;
 
 	// Instantaneous value queries
