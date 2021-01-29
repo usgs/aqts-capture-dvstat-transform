@@ -19,6 +19,7 @@ public class TimeSeriesDao {
 	@Autowired
 	protected JdbcTemplate jdbcTemplate;
 
+	// Statistical daily value queries
 	@Value("classpath:sql/deleteTsCorrectedData.sql")
 	private Resource deleteTsCorrectedData;
 
@@ -33,6 +34,22 @@ public class TimeSeriesDao {
 
 	@Value("classpath:sql/updateTsDescriptionList.sql")
 	private Resource updateTsDescriptionList;
+
+	// Instantaneous value queries
+	@Value("classpath:sql/instantaneous/deleteInstantaneousData.sql")
+	private Resource deleteInstantaneousData;
+
+	@Value("classpath:sql/instantaneous/getInstantaneousExpectedPoints.sql")
+	private Resource getInstantaneousExpectedPoints;
+
+	@Value("classpath:sql/instantaneous/getInstantaneousCount.sql")
+	private Resource getInstantaneousCount;
+
+	@Value("classpath:sql/instantaneous/insertInstantaneousData.sql")
+	private Resource insertInstantaneousData;
+
+	@Value("classpath:sql/instantaneous/updateTsDescriptionListInstantaneous.sql")
+	private Resource updateTsDescriptionListInstantaneous;
 
 	@Transactional
 	public int doDeleteTsCorrectedData(RequestObject request) {
@@ -71,6 +88,45 @@ public class TimeSeriesDao {
 	@Transactional
 	public int doUpdateTsDescriptionList(String uniqueId) {
 		return jdbcTemplate.update(getSql(updateTsDescriptionList), uniqueId);
+	}
+
+	@Transactional
+	public int doDeleteInstantaneousData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(deleteInstantaneousData),
+				request.getId(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional(readOnly=true)
+	public Integer doGetInstantaneousExpectedPoints(RequestObject request) {
+		return jdbcTemplate.queryForObject(
+				getSql(getInstantaneousExpectedPoints),
+				Integer.class,
+				request.getId(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional(readOnly=true)
+	public Integer doGetInstantaneousCount(String uniqueId) {
+		return jdbcTemplate.queryForObject(getSql(getInstantaneousCount), Integer.class, uniqueId);
+	}
+
+	@Transactional
+	public int doInsertInstantaneousData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(insertInstantaneousData),
+				request.getPartitionNumber(),
+				request.getPartitionNumber(),
+				request.getPartitionNumber(),
+				request.getId(),
+				request.getPartitionNumber(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional
+	public int doUpdateTsDescriptionListInstantaneous(String uniqueId) {
+		return jdbcTemplate.update(getSql(updateTsDescriptionListInstantaneous), uniqueId);
 	}
 
 	protected String getSql(Resource resource) {

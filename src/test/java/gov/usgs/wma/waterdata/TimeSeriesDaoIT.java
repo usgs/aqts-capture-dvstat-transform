@@ -61,10 +61,10 @@ public class TimeSeriesDaoIT {
 		request.setPartitionNumber(PARTITION_NUMBER);
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/delete/entire/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/delete/entire/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/delete/entire/",
+			value="classpath:/testResult/statisticalDailyValue/delete/entire/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test
@@ -72,10 +72,10 @@ public class TimeSeriesDaoIT {
 		assertEquals(19, timeSeriesDao.doDeleteTsCorrectedData(request));
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/delete/partial/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/delete/partial/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/delete/partial/",
+			value="classpath:/testResult/statisticalDailyValue/delete/partial/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test
@@ -83,23 +83,23 @@ public class TimeSeriesDaoIT {
 		assertEquals(6, timeSeriesDao.doDeleteTsCorrectedData(request));
 	}
 
-	@DatabaseSetup("classpath:/testData/delete/entire/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/delete/entire/")
 	@Test
 	public void doGetExpectedPointsTest() {
 		assertEquals(19, timeSeriesDao.doGetExpectedPoints(request));
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
 	@Test
 	public void doGetGwStatisticalDvCountTest() {
 		assertEquals(19, timeSeriesDao.doGetGwStatisticalDvCount(TS_CORRECTED_ID_ABC));
 		assertEquals(1, timeSeriesDao.doGetGwStatisticalDvCount(TS_CORRECTED_ID_DEF));
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/insert/append/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/insert/append/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/insert/append/",
+			value="classpath:/testResult/statisticalDailyValue/insert/append/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test
@@ -110,10 +110,10 @@ public class TimeSeriesDaoIT {
 		assertEquals(13, timeSeriesDao.doInsertTsCorrectedData(request));
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/update/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/update/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/update/",
+			value="classpath:/testResult/statisticalDailyValue/update/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test

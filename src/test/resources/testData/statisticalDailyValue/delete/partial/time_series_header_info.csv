@@ -1,0 +1,2 @@
+json_data_id,time_series_unique_id,time_range_start,time_range_end,partition_number
+1,aBc,2020-01-05 00:00:00.000000,2020-01-10 00:00:00.000000,7
