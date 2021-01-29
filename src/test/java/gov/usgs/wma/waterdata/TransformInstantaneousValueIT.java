@@ -58,7 +58,7 @@ public class TransformInstantaneousValueIT {
     @BeforeEach
     public void beforeEach() {
         request = new RequestObject();
-        request.setPartitionNumber(TimeSeriesDaoIT.PARTITION_NUMBER);
+        request.setPartitionNumber(TimeSeriesDaoIT.INSTANTANEOUS_PARTITION_NUMBER);
     }
 
     @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
@@ -69,9 +69,9 @@ public class TransformInstantaneousValueIT {
     )
     @Test
     public void processInstantaneousDataTest() {
-        request.setId(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_2);
+        request.setId(TimeSeriesDaoIT.INSTANTANEOUS_JSON_DATA_ID_106974156);
         request.setType(TransformInstantaneousValue.TS_CORRECTED_DATA);
-        request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);
+        request.setUniqueId(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
         ResultObject result = transformInstantaneousValue.processInstantaneousData(request);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
@@ -94,7 +94,7 @@ public class TransformInstantaneousValueIT {
     public void processTsDescriptionListInstantaneousUpdate() {
         request.setId(JSON_ID_0);
         request.setType(TransformInstantaneousValue.TS_DESCRIPTION_LIST);
-        request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_DEF);
+        request.setUniqueId(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID_2);
         ResultObject result = transformInstantaneousValue.processTsDescriptionListInstantaneous(request);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
@@ -124,9 +124,9 @@ public class TransformInstantaneousValueIT {
     @DatabaseSetup("classpath:/testData/instantaneous/insert/append/")
     @Test
     public void validateInstantaneousData() {
-        request.setId(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_2);
+        request.setId(TimeSeriesDaoIT.INSTANTANEOUS_JSON_DATA_ID_106974156);
         request.setType(TransformInstantaneousValue.TS_CORRECTED_DATA);
-        request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);
+        request.setUniqueId(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
         ResultObject result = transformInstantaneousValue.validateInstantaneousData(request, 0, 9, 12);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
