@@ -123,7 +123,7 @@ public class TransformDailyValueIT {
 	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
 	@DatabaseSetup("classpath:/testData/statisticalDailyValue/insert/append/")
 	@Test
-	public void validateInstantaneousData() {
+	public void validateTsCorrectedData() {
 		request.setId(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_2);
 		request.setType(TransformDailyValue.TS_CORRECTED_DATA);
 		request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_ABC);

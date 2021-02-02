@@ -51,7 +51,8 @@ public class TransformInstantaneousValueIT {
 
     public static final Integer TS_CORRECTED_ROWS_DELETED_2 = 9;
 
-    public static final Integer TS_CORRECTED_ROWS_ABC = 22;
+    // original value was 22
+    public static final Integer INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701 = 15;
 
     public static final Long JSON_ID_0 = 0L;
 
@@ -77,7 +78,7 @@ public class TransformInstantaneousValueIT {
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
         assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_ABC, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
 
         assertThrows(RuntimeException.class, () -> {
             transformInstantaneousValue.apply(request);
@@ -132,7 +133,7 @@ public class TransformInstantaneousValueIT {
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
         assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
-        assertEquals(19, result.getTotalTimeSteps());
+        assertEquals(12, result.getTotalTimeSteps());
 
         assertThrows(RuntimeException.class, () -> {
             transformInstantaneousValue.apply(request);
@@ -145,7 +146,7 @@ public class TransformInstantaneousValueIT {
     public void validateTsDescriptionListInstantaneous() {
         request.setId(JSON_ID_0);
         request.setType(TransformInstantaneousValue.TS_DESCRIPTION_LIST);
-        request.setUniqueId(TimeSeriesDaoIT.TS_CORRECTED_ID_DEF);
+        request.setUniqueId(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID_2);
         ResultObject result = transformInstantaneousValue.validateTsDescriptionListInstantaneous(request, 1, 1);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());

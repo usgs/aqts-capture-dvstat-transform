@@ -1,2 +1,2 @@
-json_data_id,time_series_unique_id,num_points,time_range_start,time_range_end,partition_number
-1,aBc,19,2020-01-01 06:00:00.000000,2020-03-01 00:00:00.000000,7
+"json_data_id","time_series_unique_id","notes","summary","num_points","time_range_start","time_range_end","response_time","response_version","location_identifier","partition_number"
+106974156,d53f1e5a50aa49adb04dc52ad04c4701,"[{\"Some\": \"notes\"}]","[{\"A\": \"summary\"}]",19,"2002-10-01 05:00:00","2021-01-29 15:45:00","2021-01-29 16:04:37.346824",1,"05300000",1
