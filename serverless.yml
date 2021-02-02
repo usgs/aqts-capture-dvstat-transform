@@ -1,4 +1,3 @@
-# TODO seems like the service name should change to something like aqts-capture-ts-transform
 service: aqts-capture-dvstat-transform
 
 provider:
@@ -17,7 +16,6 @@ provider:
   vpc: ${self:custom.vpc}
   deploymentBucket:
     name: ${opt:bucket, iow-cloud-applications}
-# TODO anything with Dvstat or daily value should be replaced with just time series
   stackTags:
     "wma:project_id": "aqtscapture"
     "wma:subSystem": "aqtscapture"
@@ -47,7 +45,6 @@ custom:
     filterPattern: "?java.lang.RuntimeException"
 
 functions:
-# TODO this function name should be dvstat, while the new one should be instantaneous
   transform:
     handler: gov.usgs.wma.waterdata.TransformDailyValueHandler
     role:
@@ -67,7 +64,6 @@ functions:
       AWS_DEPLOYMENT_REGION: ${self:provider.region}
       ROOT_LOG_LEVEL: INFO
 
-    # TODO add another function for instantaneous values here, remember to add the package declaration to both functions
     instantaneous:
       handler: gov.usgs.wma.waterdata.TransformInstantaneousValueHandler
       role:
@@ -87,8 +83,6 @@ functions:
         AWS_DEPLOYMENT_REGION: ${self:provider.region}
         ROOT_LOG_LEVEL: INFO
 
-# TODO how is the resources section affected, especially the Dimensions -> Value -> Ref parts? Do we need a resources
-# section per lambda?
 resources:
   Resources:
     snsTopic:
@@ -123,8 +117,5 @@ plugins:
   - serverless-prune-plugin
   - serverless-es-logs
 
-# TODO this can get rolled up into each individual function, with the addition of
-# individually: true
-# to each package declaration
 package:
   artifact: aqts-capture-dvstat-transform-aws.jar
