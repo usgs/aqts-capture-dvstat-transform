@@ -46,12 +46,11 @@ public class TransformInstantaneousValueIT {
     private TransformInstantaneousValue transformInstantaneousValue;
     private RequestObject request;
 
-    public static final Integer TS_CORRECTED_ROWS_AFFECTED_1 = 1;
-    public static final Integer TS_CORRECTED_ROWS_AFFECTED_2 = 12;
+    public static final Integer INSTANTANEOUSTS_ROWS_AFFECTED_1 = 1;
+    public static final Integer INSTANTANEOUSTS_ROWS_AFFECTED_2 = 12;
 
-    public static final Integer TS_CORRECTED_ROWS_DELETED_2 = 9;
+    public static final Integer INSTANTANEOUSTS_ROWS_DELETED_2 = 9;
 
-    // original value was 22
     public static final Integer INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701 = 15;
 
     public static final Long JSON_ID_0 = 0L;
@@ -75,14 +74,10 @@ public class TransformInstantaneousValueIT {
         request.setUniqueId(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
         ResultObject result = transformInstantaneousValue.processInstantaneousData(request);
         assertNotNull(result);
-        assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
-        assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
+        assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_DELETED_2, result.getDeletedTimeSteps());
         assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
-
-        assertThrows(RuntimeException.class, () -> {
-            transformInstantaneousValue.apply(request);
-        }, "should have thrown an exception but did not");
     }
 
     @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
@@ -131,13 +126,9 @@ public class TransformInstantaneousValueIT {
         ResultObject result = transformInstantaneousValue.validateInstantaneousData(request, 0, 9, 12);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
-        assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.TS_CORRECTED_ROWS_DELETED_2, result.getDeletedTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_DELETED_2, result.getDeletedTimeSteps());
         assertEquals(12, result.getTotalTimeSteps());
-
-        assertThrows(RuntimeException.class, () -> {
-            transformInstantaneousValue.apply(request);
-        }, "should have thrown an exception but did not");
     }
 
     @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")
