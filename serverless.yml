@@ -100,7 +100,7 @@ resources:
           - Name: FunctionName
             Value:
               Ref: TransformLambdaFunction
-          - Name: FunctionName
+          - Name: FunctionNameInstantaneous
             Value:
               Ref: InstantaneousLambdaFunction
         MetricName: Errors
