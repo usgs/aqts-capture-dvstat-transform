@@ -1,0 +1,2 @@
+instantaneous_value_identifier,time_series_unique_id,monitoring_location_identifier,parameter_code,statistic_id,time_step,unit_of_measure,result,approvals,qualifiers,grades
+WISC-12345678901234-dEf,dEf,WISC-12345678901234,prop,stat,2020-01-01,ft,12.23,"[\"APP\"]","[\"QUAL\"]","[\"GRADE\"]"

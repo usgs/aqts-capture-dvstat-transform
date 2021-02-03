@@ -25,15 +25,7 @@ public class JsonType extends AbstractDataType {
 	@Override
 	public Object getSqlValue(int column, ResultSet resultSet) throws SQLException {
 		LOG.trace("getSqlValue({}, {})", column, resultSet);
-		if (resultSet.wasNull()) {
-			return null;
-		}
-		String resultString = resultSet.getString(column);
-		// convert the string into an array of strings for further manipulation
-		String[] resultArray = resultString.substring(1, resultString.length()-1).split(", ");
-		// sort the array to make sure the order is consistent between test runs
-		Arrays.sort(resultArray);
-		return Arrays.toString(resultArray);
+		return resultSet.getString(column);
 	}
 
 	@Override

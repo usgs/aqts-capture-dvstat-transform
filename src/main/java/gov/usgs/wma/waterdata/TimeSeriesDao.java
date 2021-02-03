@@ -19,20 +19,37 @@ public class TimeSeriesDao {
 	@Autowired
 	protected JdbcTemplate jdbcTemplate;
 
-	@Value("classpath:sql/deleteTsCorrectedData.sql")
+	// Statistical daily value queries
+	@Value("classpath:sql/statisticalDailyValue/deleteTsCorrectedData.sql")
 	private Resource deleteTsCorrectedData;
 
-	@Value("classpath:sql/getExpectedPoints.sql")
+	@Value("classpath:sql/statisticalDailyValue/getExpectedPoints.sql")
 	private Resource getExpectedPoints;
 
-	@Value("classpath:sql/getGwStatisticalDvCount.sql")
+	@Value("classpath:sql/statisticalDailyValue/getGwStatisticalDvCount.sql")
 	private Resource getGwStatisticalDvCount;
 
-	@Value("classpath:sql/insertTsCorrectedData.sql")
+	@Value("classpath:sql/statisticalDailyValue/insertTsCorrectedData.sql")
 	private Resource insertTsCorrectedData;
 
-	@Value("classpath:sql/updateTsDescriptionList.sql")
+	@Value("classpath:sql/statisticalDailyValue/updateTsDescriptionList.sql")
 	private Resource updateTsDescriptionList;
+
+	// Instantaneous value queries
+	@Value("classpath:sql/instantaneous/deleteInstantaneousData.sql")
+	private Resource deleteInstantaneousData;
+
+	@Value("classpath:sql/instantaneous/getInstantaneousExpectedPoints.sql")
+	private Resource getInstantaneousExpectedPoints;
+
+	@Value("classpath:sql/instantaneous/getInstantaneousCount.sql")
+	private Resource getInstantaneousCount;
+
+	@Value("classpath:sql/instantaneous/insertInstantaneousData.sql")
+	private Resource insertInstantaneousData;
+
+	@Value("classpath:sql/instantaneous/updateTsDescriptionListInstantaneous.sql")
+	private Resource updateTsDescriptionListInstantaneous;
 
 	@Transactional
 	public int doDeleteTsCorrectedData(RequestObject request) {
@@ -71,6 +88,45 @@ public class TimeSeriesDao {
 	@Transactional
 	public int doUpdateTsDescriptionList(String uniqueId) {
 		return jdbcTemplate.update(getSql(updateTsDescriptionList), uniqueId);
+	}
+
+	@Transactional
+	public int doDeleteInstantaneousData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(deleteInstantaneousData),
+				request.getId(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional(readOnly=true)
+	public Integer doGetInstantaneousExpectedPoints(RequestObject request) {
+		return jdbcTemplate.queryForObject(
+				getSql(getInstantaneousExpectedPoints),
+				Integer.class,
+				request.getId(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional(readOnly=true)
+	public Integer doGetInstantaneousCount(String uniqueId) {
+		return jdbcTemplate.queryForObject(getSql(getInstantaneousCount), Integer.class, uniqueId);
+	}
+
+	@Transactional
+	public int doInsertInstantaneousData(RequestObject request) {
+		return jdbcTemplate.update(
+				getSql(insertInstantaneousData),
+				request.getPartitionNumber(),
+				request.getPartitionNumber(),
+				request.getPartitionNumber(),
+				request.getId(),
+				request.getPartitionNumber(),
+				request.getPartitionNumber());
+	}
+
+	@Transactional
+	public int doUpdateTsDescriptionListInstantaneous(String uniqueId) {
+		return jdbcTemplate.update(getSql(updateTsDescriptionListInstantaneous), uniqueId);
 	}
 
 	protected String getSql(Resource resource) {

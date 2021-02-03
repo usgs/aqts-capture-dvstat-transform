@@ -1,0 +1,10 @@
+"json_data_id","start_time","end_time","approval_user","approval_comment","approval_level","level_description","date_applied_utc","partition_number"
+106974156,"2019-10-08 21:09:00","9999-12-31 23:59:59.999999",admin,null,"900",Working,"2017-01-31 20:46:50.05348",1
+106974156,"2018-10-16 20:18:00","2019-10-08 21:09:00",gwelsh,Approval changed to Approved by gwelsh.,"1200",Approved,"2020-10-01 16:21:33.718373",1
+106974156,"2018-07-16 20:55:00","2018-10-16 20:18:00",pdfarrel,Approval changed to Approved by pdfarrel.,"1200",Approved,"2019-09-27 14:05:44.235449",1
+106974156,"2018-04-25 17:52:00","2018-07-16 20:55:00",besavage,Approval changed to Approved by besavage.,"1200",Approved,"2018-11-28 17:24:52.721808",1
+106974156,"2017-11-15 13:58:00","2018-04-25 17:52:00",besavage,Approval changed to Approved by besavage.,"1200",Approved,"2018-08-20 19:55:34.962611",1
+106974156,"2016-10-13 14:02:00","2017-11-15 13:58:00",gwelsh,Approval changed to Approved by gwelsh.,"1200",Approved,"2018-03-12 16:15:15.631844",1
+106974156,"2016-03-16 18:36:00","2016-10-13 14:02:00",elahti,Approval changed to In Review by elahti.,"1200",Approved,"2017-06-08 17:09:53.357675",1
+106974156,"2016-03-16 06:00:00","2016-03-16 18:36:00",besavage,Approval changed to In Review by besavage.,"1200",Approved,"2017-05-22 01:06:59.907536",1
+106974156,"2001-10-01 06:00:00","2016-03-16 06:00:00",admin,null,"1200",Approved,"2017-01-31 20:48:02.569861",1

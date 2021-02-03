@@ -61,10 +61,10 @@ public class TransformDailyValueIT {
 		request.setPartitionNumber(TimeSeriesDaoIT.PARTITION_NUMBER);
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/insert/append/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/insert/append/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/insert/upsert/",
+			value="classpath:/testResult/statisticalDailyValue/insert/upsert/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test
@@ -84,10 +84,10 @@ public class TransformDailyValueIT {
 		}, "should have thrown an exception but did not");
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/update/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/update/")
 	@ExpectedDatabase(
-			value="classpath:/testResult/update/",
+			value="classpath:/testResult/statisticalDailyValue/update/",
 			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED
 			)
 	@Test
@@ -120,8 +120,8 @@ public class TransformDailyValueIT {
 		}, "should have thrown an exception but did not");
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/insert/append/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/insert/append/")
 	@Test
 	public void validateTsCorrectedData() {
 		request.setId(TimeSeriesDaoIT.TS_CORRECTED_JSON_DATA_ID_2);
@@ -139,8 +139,8 @@ public class TransformDailyValueIT {
 		}, "should have thrown an exception but did not");
 	}
 
-	@DatabaseSetup("classpath:/testData/groundwaterStatisticalDailyValue/")
-	@DatabaseSetup("classpath:/testData/update/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/groundwaterStatisticalDailyValue/")
+	@DatabaseSetup("classpath:/testData/statisticalDailyValue/update/")
 	@Test
 	public void validateTsDescriptionList() {
 		request.setId(JSON_ID_0);
