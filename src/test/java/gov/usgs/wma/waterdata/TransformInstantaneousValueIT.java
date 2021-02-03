@@ -51,7 +51,7 @@ public class TransformInstantaneousValueIT {
 
     public static final Integer INSTANTANEOUSTS_ROWS_DELETED_2 = 9;
 
-    public static final Integer INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701 = 15;
+    public static final Integer INSTANTANEOUS_ROWS_TOTAL = 15;
 
     public static final Long JSON_ID_0 = 0L;
 
@@ -77,7 +77,7 @@ public class TransformInstantaneousValueIT {
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
         assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_AFFECTED_2, result.getAffectedTimeSteps());
         assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_DELETED_2, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
     }
 
     @DatabaseSetup("classpath:/testData/instantaneous/instantaneousValue/")

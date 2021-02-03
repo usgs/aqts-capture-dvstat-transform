@@ -30,9 +30,9 @@ public class TransformInstantaneousValueTest {
         when(timeSeriesDao.doInsertInstantaneousData(request))
                 .thenReturn(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_AFFECTED_1);
         when(timeSeriesDao.doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID))
-                .thenReturn(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701);
+                .thenReturn(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL);
         when(timeSeriesDao.doUpdateTsDescriptionListInstantaneous(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID))
-                .thenReturn(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701);
+                .thenReturn(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class TransformInstantaneousValueTest {
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(TransformInstantaneousValueIT.INSTANTANEOUSTS_ROWS_AFFECTED_1, result.getAffectedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao, times(2)).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
         verify(timeSeriesDao).doDeleteInstantaneousData(request);
         verify(timeSeriesDao).doInsertInstantaneousData(request);
@@ -107,8 +107,8 @@ public class TransformInstantaneousValueTest {
         ResultObject result = transformInstantaneousValue.processRequest(request);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getAffectedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getAffectedTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao, times(2)).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
         verify(timeSeriesDao).doUpdateTsDescriptionListInstantaneous(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
     }
@@ -169,16 +169,16 @@ public class TransformInstantaneousValueTest {
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(3, result.getAffectedTimeSteps());
         assertEquals(2, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao).doGetInstantaneousExpectedPoints(request);
         verify(timeSeriesDao).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
 
-        result = transformInstantaneousValue.validateInstantaneousData(request, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, 0, 0);
+        result = transformInstantaneousValue.validateInstantaneousData(request, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, 0, 0);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
         assertEquals(0, result.getAffectedTimeSteps());
         assertEquals(0, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao, times(2)).doGetInstantaneousExpectedPoints(request);
         verify(timeSeriesDao, times(2)).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
     }
@@ -191,7 +191,7 @@ public class TransformInstantaneousValueTest {
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(7, result.getAffectedTimeSteps());
         assertEquals(0, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
 
         result = transformInstantaneousValue.validateTsDescriptionListInstantaneous(request, 25, 25);
@@ -199,15 +199,15 @@ public class TransformInstantaneousValueTest {
         assertEquals(TransformInstantaneousValue.TRANSFORM_ERROR, result.getTransformStatus());
         assertEquals(25, result.getAffectedTimeSteps());
         assertEquals(0, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao, times(2)).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
 
-        result = transformInstantaneousValue.validateTsDescriptionListInstantaneous(request, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701);
+        result = transformInstantaneousValue.validateTsDescriptionListInstantaneous(request, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL);
         assertNotNull(result);
         assertEquals(TransformInstantaneousValue.SUCCESSFUL, result.getTransformStatus());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getAffectedTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getAffectedTimeSteps());
         assertEquals(0, result.getDeletedTimeSteps());
-        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_d53f1e5a50aa49adb04dc52ad04c4701, result.getTotalTimeSteps());
+        assertEquals(TransformInstantaneousValueIT.INSTANTANEOUS_ROWS_TOTAL, result.getTotalTimeSteps());
         verify(timeSeriesDao, times(3)).doGetInstantaneousCount(TimeSeriesDaoIT.INSTANTANEOUS_TIME_SERIES_UNIQUE_ID);
     }
 
