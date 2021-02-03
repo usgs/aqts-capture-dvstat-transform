@@ -12,7 +12,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	private TimeSeriesDao timeSeriesDao;
+	private TimeSeriesDao timeSeriesDao = new TimeSeriesDao();
 
 	@Bean
 	public Function<RequestObject, ResultObject> transform() {
