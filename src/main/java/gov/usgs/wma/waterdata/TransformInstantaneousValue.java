@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("instantaneous")
 public class TransformInstantaneousValue implements Function<RequestObject, ResultObject> {
     private static final Logger LOG = LoggerFactory.getLogger(TransformInstantaneousValue.class);
 
